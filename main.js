@@ -7,8 +7,8 @@ const operatorButtons = document.querySelectorAll(".operator");
 
 const equalBtn = document.querySelector(".equal");
 const clearBtn = document.querySelector(".clear");
-const history = document.querySelector(".history");
-const historyBtn = document.querySelector("history__button");
+const history = document.querySelector(".history__results");
+const historyBtn = document.querySelector(".history__button");
 
 let result = "";
 
@@ -35,14 +35,67 @@ function operate() {
 }
 
 function showresult() {
-  if (previousNumber.innerHTML) {
+  if (previousNumber.innerHTML === "" || currentNumber.innerHTML === "") return;
+
+  let a = Number(currentNumber.innerHTML);
+  let b = Number(previousNumber.innerHTML);
+  let operator = mathSign.innerHTML;
+
+  switch (operator) {
+    case "+":
+      result = a + b;
+      break;
+    case "-":
+      result = b - a;
+      break;
+    case "*":
+      result = a * b;
+      break;
+    case "/":
+      if (a === 0) {
+        result = 0;
+      } else {
+        result = b / a;
+      }
+      break;
+    case "^":
+      result = b ** a;
+      break;
   }
+
+  addToHistory();
+  historyBtn.classList.add("history__button--active");
+
+  currentNumber.innerHTML = result;
+  previousNumber.innerHTML = "";
+  mathSign.innerHTML = "";
+}
+
+function addToHistory() {
+  const newHisoryItem = document.createElement("li");
+  newHisoryItem.innerHTML = `${previousNumber.innerHTML} ${mathSign.innerHTML} ${currentNumber.innerHTML} = ${result}`;
+  newHisoryItem.classList.add("history__results__item");
+  history.appendChild(newHisoryItem);
+}
+
+function clearHistory() {
+  history.innerHTML = "";
+  if (history.innerHTML === "") {
+    historyBtn.classList.remove("history__button--active");
+  }
+}
+
+function clearScreen() {
+  result = "";
+  currentNumber.innerHTML = "";
+  mathSign.innerHTML = "";
+  previousNumber.innerHTML = "";
 }
 
 operatorButtons.forEach((button) => button.addEventListener("click", operate));
 numberButtons.forEach((button) =>
   button.addEventListener("click", displayNumber)
 );
-// equalBtn.addEventListener("click", showresult);
-//clearBtn.addEventListener("click", clearScreen);
-//historyBtn.addEventListener("click", clearHistory);
+equalBtn.addEventListener("click", showresult);
+clearBtn.addEventListener("click", clearScreen);
+historyBtn.addEventListener("click", clearHistory);

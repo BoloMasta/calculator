@@ -5,6 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.css"
+    />
     <title>JS Calculator</title>
   </head>
   <body>
@@ -17,7 +21,7 @@
       </div>
       <div class="buttons">
         <button class="clear">C</button>
-        <button class="operator">2^</button>
+        <button class="operator">^</button>
         <button class="operator">/</button>
         <button class="operator">*</button>
         <button class="number">7</button>
@@ -38,15 +42,17 @@
       </div>
     </div>
 
-    <div class="history">
+    <div data-simplebar class="history">
       <p class="hisotry__heading">Recent calculations:</p>
       <button type="button" class="history__button">clear</button>
-      <hr>
+      <hr />
       <ul class="history__results">
-        <!-- <li class="history__results__item"></li> -->
-        
+        <!-- 
+          <li class="history__results__item">
+          </li> -->
       </ul>
     </div>
     <script src="main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.min.js"></script>
   </body>
 </html>
